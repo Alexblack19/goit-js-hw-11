@@ -4,9 +4,7 @@ const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
 // formEl.addEventListener('submit', onSearchPhotoSubmit);
 
-const photoName = 'dog';
-
-searchPhoto(photoName)
+searchPhoto('dog')
   .then(data => {
     const photoArr = data.hits;
     const galleryMarkup = createImgGalleryMarkup(photoArr);
@@ -16,7 +14,8 @@ searchPhoto(photoName)
   .catch(error => console.log(error.message));
 
 function createImgGalleryMarkup(photoArr) {
-  return photoArr
+  console.log(photoArr);
+  const qwerty = photoArr
     .map(
       ({
         webformatURL,
@@ -26,7 +25,7 @@ function createImgGalleryMarkup(photoArr) {
         views,
         comments,
         downloads,
-      }) => {        
+      }) => {
         `<div class="photo-card">
            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
            <div class="info">
@@ -47,4 +46,6 @@ function createImgGalleryMarkup(photoArr) {
       }
     )
     .join('');
+  console.log(qwerty);
+  return qwerty;
 }
