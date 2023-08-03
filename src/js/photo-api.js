@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // axios.defaults.headers.common['key'] = '38572739-8ecec7d616fae8b4ce60f4b21';
 
-const searchPhoto = () =>
+export const searchPhoto = () =>
   axios
     .get(
       `https://pixabay.com/api/?key=38572739-8ecec7d616fae8b4ce60f4b21&q=dog&image_type=photo&orientation =horizontal&safesearch =true&per_page=5`
@@ -12,9 +12,4 @@ const searchPhoto = () =>
     .then(response => {
       return response.data;
     });
-
-searchPhoto()
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
-
-  console.log('Hello');
+  
