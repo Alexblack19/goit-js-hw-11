@@ -1,3 +1,8 @@
+// Описаний в документації
+import SimpleLightbox from "simplelightbox";
+// Додатковий імпорт стилів
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 import { searchPhoto } from './js/photo-api.js';
 
 const formEl = document.querySelector('#search-form');
@@ -7,15 +12,14 @@ const galleryListEl = document.querySelector('.gallery');
 searchPhoto('dog')
   .then(data => {
     const photoArr = data.hits;
-    const galleryMarkup = createImgGalleryMarkup(photoArr);
-    console.log(galleryMarkup);
+    const galleryMarkup = createImgGalleryMarkup(photoArr);    
     galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+    new SimpleLightbox('.gallery');
   })
   .catch(error => console.log(error.message));
 
 function createImgGalleryMarkup(photoArr) {
-  console.log(photoArr);
-  const qwerty = photoArr
+  return photoArr
     .map(
       ({
         webformatURL,
@@ -25,8 +29,8 @@ function createImgGalleryMarkup(photoArr) {
         views,
         comments,
         downloads,
-      }) => {
-        `<div class="photo-card">
+      }) => { 
+        return `<div class="photo-card">
            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
            <div class="info">
                 <p class="info-item">
@@ -45,7 +49,7 @@ function createImgGalleryMarkup(photoArr) {
          </div>`;
       }
     )
-    .join('');
-  console.log(qwerty);
-  return qwerty;
+    .join('');  
 }
+
+
