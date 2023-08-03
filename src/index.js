@@ -1,7 +1,12 @@
 import { searchPhoto } from './js/photo-api.js';
 
-searchPhoto()
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
+const formEl = document.querySelector('#search-form');
 
-console.log('Hello');
+// formEl.addEventListener('submit', onSearchPhotoSubmit);
+
+
+  searchPhoto()
+    .then(data => console.log(data.hits))
+    .catch(error => console.log(error.message));
+
+
