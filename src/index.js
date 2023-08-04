@@ -4,7 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // =============================================
 
-import { searchPhoto } from './js/photo-api.js';
+import { fetchPhoto } from './js/photo-api.js';
 
 const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
@@ -19,7 +19,7 @@ function onSearchSubmit(e) {
     return;
   }
 
-  searchPhoto(photoTitle)
+  fetchPhoto(photoTitle)
     .then(data => {
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -69,8 +69,7 @@ function createGalleryMarkup(photoArr) {
                </div>
              </div>
             </a>`
-    )
-    .join('');
+    );
 }
 
 formEl.addEventListener('submit', onSearchSubmit);
@@ -80,5 +79,4 @@ function onLoadMoreClick(e) {
   const load =
     e.target.previousElementSibling.previousElementSibling.elements.searchQuery
       .value;
-  searchPhoto(load);
 }
