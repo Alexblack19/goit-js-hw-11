@@ -16,7 +16,6 @@ export const searchPhoto = async (photoTitle) => {
         per_page: 40,
       },
     }    
-  );
-  console.log(response);
+  );  
   return response.data;
 };

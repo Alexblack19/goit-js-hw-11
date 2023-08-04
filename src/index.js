@@ -14,6 +14,10 @@ function onSearchPhoto(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
   const photoTitle = e.target.firstElementChild.value;
+  if (photoTitle === '') {
+    galleryListEl.innerHTML = '';
+    return;
+  }
 
   searchPhoto(photoTitle)
     .then(data => {
