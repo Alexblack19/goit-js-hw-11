@@ -12,32 +12,28 @@ formEl.addEventListener('submit', onSearchPhoto);
 
 function onSearchPhoto(e) {
   e.preventDefault();
-  const photoTitle = e.target.firstElementChild.value
+  galleryListEl.innerHTML = '';
+  const photoTitle = e.target.firstElementChild.value;
 
   searchPhoto(photoTitle)
-  .then(data => {
-    if (!data.hits.length) {
-      Notiflix.Notify.warning(
-        'Sorry, there are no images matching your search query. Please try again.',
-        { position: 'center-center' }
-      );
-    }
+    .then(data => {
+      if (!data.hits.length) {
+        Notiflix.Notify.warning(
+          'Sorry, there are no images matching your search query. Please try again.',
+          { position: 'center-center' }
+        );
+      }
 
-    const galleryMarkup = createGalleryMarkup(data.hits);
-    galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-    let gallery = new SimpleLightbox('.gallery .card-link', {
-      captionsData: 'alt',
-      captionDelay: 250,
-      enableKeyboard: true,
-    });
-  })
-  .catch(error => console.log(error.message));
-
-
-  
+      const galleryMarkup = createGalleryMarkup(data.hits);
+      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+      let gallery = new SimpleLightbox('.gallery .card-link', {
+        captionsData: 'alt',
+        captionDelay: 250,
+        enableKeyboard: true,
+      });
+    })
+    .catch(error => console.log(error.message));
 }
-
-
 
 function createGalleryMarkup(photoArr) {
   return photoArr
