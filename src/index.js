@@ -14,8 +14,13 @@ searchPhoto('dog')
     const photoArr = data.hits;
     const galleryMarkup = createImgGalleryMarkup(photoArr);
     galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-    let gallery = new SimpleLightbox('.gallery .card-link');
+    let gallery = new SimpleLightbox('.gallery .card-link', {
+      captionsData: 'alt',
+      captionDelay: 250,
+      enableKeyboard: true,
+    });
   })
+
   .catch(error => console.log(error.message));
 
 function createImgGalleryMarkup(photoArr) {
@@ -29,27 +34,25 @@ function createImgGalleryMarkup(photoArr) {
         views,
         comments,
         downloads,
-      }) => {
-        return `<a class="card-link" href="${largeImageURL}">
-        <div class="photo-card">        
-           <img src="${webformatURL}" alt="${tags}" loading="lazy" />          
-           <div class="info">
-                <p class="info-item">
-                    <b>Likes</b>
-                </p>
-                <p class="info-item">
-                    <b>Views</b>
-                </p>
-                <p class="info-item">
-                    <b>Comments</b>
-                </p>
-                <p class="info-item">
-                    <b>Downloads</b>
-                </p>
-           </div>           
-         </div>
-         </a>`;
-      }
+      }) => `<a class="card-link" href="${largeImageURL}">
+             <div class="photo-card">        
+               <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+               <div class="info">
+                  <p class="info-item">
+                      <b>Likes ${likes}</b>
+                  </p>
+                  <p class="info-item">
+                      <b>Views ${views}</b>
+                  </p>
+                  <p class="info-item">
+                      <b>Comments ${comments}</b>
+                  </p>
+                  <p class="info-item">
+                      <b>Downloads ${downloads}</b>
+                  </p>
+               </div>           
+             </div>
+            </a>`
     )
     .join('');
 }

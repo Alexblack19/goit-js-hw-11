@@ -1,0 +1,16 @@
+.info {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 1140px;    
+}
+
+.card-link {
+    max-width: 300px;
+}
