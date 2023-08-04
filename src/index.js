@@ -1,7 +1,8 @@
-// Описаний в документації
+//======== Підключення бібліотек ========
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import Notiflix from 'notiflix';
+// ======================================
 
 import { searchPhoto } from './js/photo-api.js';
 
@@ -9,10 +10,17 @@ const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
 // formEl.addEventListener('submit', onSearchPhotoSubmit);
 
-searchPhoto('dog')
+searchPhoto('dog99')
   .then(data => {
     const photoArr = data.hits;
-    const galleryMarkup = createImgGalleryMarkup(photoArr);
+    if (!photoArr.length) {
+      Notiflix.Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.',
+        { position: 'center-center' }
+      );
+    }
+
+    const galleryMarkup = createGalleryMarkup(photoArr);
     galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
     let gallery = new SimpleLightbox('.gallery .card-link', {
       captionsData: 'alt',
@@ -23,7 +31,7 @@ searchPhoto('dog')
 
   .catch(error => console.log(error.message));
 
-function createImgGalleryMarkup(photoArr) {
+function createGalleryMarkup(photoArr) {
   return photoArr
     .map(
       ({
