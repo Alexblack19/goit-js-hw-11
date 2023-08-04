@@ -17,5 +17,6 @@ export const searchPhoto = async (photoTitle) => {
       },
     }    
   );  
+  console.log(response);
   return response.data;
 };

@@ -1,16 +1,16 @@
-//======== Підключення бібліотек ========
+//=========== Підключення бібліотек ============
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-// ======================================
+// =============================================
 
 import { searchPhoto } from './js/photo-api.js';
 
 const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
-formEl.addEventListener('submit', onSearchPhoto);
+const loadMoreBtnEl = document.querySelector('.load-more');
 
-function onSearchPhoto(e) {
+function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
   const photoTitle = e.target.firstElementChild.value;
@@ -30,7 +30,7 @@ function onSearchPhoto(e) {
 
       const galleryMarkup = createGalleryMarkup(data.hits);
       galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-      let gallery = new SimpleLightbox('.gallery .card-link', {
+      new SimpleLightbox('.gallery .card-link', {
         captionsData: 'alt',
         captionDelay: 250,
         enableKeyboard: true,
@@ -51,7 +51,7 @@ function createGalleryMarkup(photoArr) {
         comments,
         downloads,
       }) => `<a class="card-link" href="${largeImageURL}">
-             <div class="photo-card">        
+             <div class="photo-card">
                <img src="${webformatURL}" alt="${tags}" loading="lazy" />
                <div class="info">
                   <p class="info-item">
@@ -66,9 +66,19 @@ function createGalleryMarkup(photoArr) {
                   <p class="info-item">
                       <b>Downloads ${downloads}</b>
                   </p>
-               </div>           
+               </div>
              </div>
             </a>`
     )
     .join('');
+}
+
+formEl.addEventListener('submit', onSearchSubmit);
+loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+
+function onLoadMoreClick(e) {
+  const load =
+    e.target.previousElementSibling.previousElementSibling.elements.searchQuery
+      .value;
+  searchPhoto(load);
 }
