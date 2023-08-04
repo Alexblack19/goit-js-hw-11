@@ -7,9 +7,13 @@ import Notiflix from 'notiflix';
 import { fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 
-const formEl = document.querySelector('#search-form');
-const galleryListEl = document.querySelector('.gallery');
-const loadMoreBtnEl = document.querySelector('.load-more');
+const refs = {
+  formEl: document.querySelector('#search-form'),
+  galleryListEl: document.querySelector('.gallery'),
+  loadMoreBtnEl: document.querySelector('.load-more'),
+};
+
+const { formEl, galleryListEl, loadMoreBtnEl } = refs;
 
 function onSearchSubmit(e) {
   e.preventDefault();
@@ -40,8 +44,6 @@ function onSearchSubmit(e) {
     })
     .catch(error => console.log(error.message));
 }
-
-
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
