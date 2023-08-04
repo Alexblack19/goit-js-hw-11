@@ -8,10 +8,14 @@ import { searchPhoto } from './js/photo-api.js';
 
 const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
-// formEl.addEventListener('submit', onSearchPhotoSubmit);
+formEl.addEventListener('submit', onSearchPhoto);
 
-searchPhoto('cat')
-  .then(data => {  
+function onSearchPhoto(e) {
+  e.preventDefault();
+  const photoTitle = e.target.firstElementChild.value
+
+  searchPhoto(photoTitle)
+  .then(data => {
     if (!data.hits.length) {
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.',
@@ -27,8 +31,13 @@ searchPhoto('cat')
       enableKeyboard: true,
     });
   })
-
   .catch(error => console.log(error.message));
+
+
+  
+}
+
+
 
 function createGalleryMarkup(photoArr) {
   return photoArr
