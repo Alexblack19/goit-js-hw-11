@@ -10,17 +10,16 @@ const formEl = document.querySelector('#search-form');
 const galleryListEl = document.querySelector('.gallery');
 // formEl.addEventListener('submit', onSearchPhotoSubmit);
 
-searchPhoto('dog99')
-  .then(data => {
-    const photoArr = data.hits;
-    if (!photoArr.length) {
+searchPhoto('cat')
+  .then(data => {  
+    if (!data.hits.length) {
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.',
         { position: 'center-center' }
       );
     }
 
-    const galleryMarkup = createGalleryMarkup(photoArr);
+    const galleryMarkup = createGalleryMarkup(data.hits);
     galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
     let gallery = new SimpleLightbox('.gallery .card-link', {
       captionsData: 'alt',
