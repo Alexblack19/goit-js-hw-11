@@ -15,26 +15,39 @@ const refs = {
 
 const { formEl, galleryListEl, loadMoreBtnEl } = refs;
 
+loadMoreBtnEl.classList.add('is-hidden');
+
+let page = 1;
+let photoTitle = '';
+
 async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
 
-  const photoTitle = e.target.firstElementChild.value.trim();
+  photoTitle = e.target.firstElementChild.value.trim();
   if (photoTitle === '') {
-    galleryListEl.innerHTML = '';
     return;
   }
 
-  await fetchPhoto(photoTitle)
+  await fetchPhoto(photoTitle, page)
     .then(data => {
+      page = 1;
+      console.log(data.total);
+      console.log(data.totalHits);
+
       if (!data.hits.length) {
         Notiflix.Notify.warning(
           'Sorry, there are no images matching your search query. Please try again.',
           { position: 'center-center' }
         );
+        loadMoreBtnEl.classList.add('is-hidden');
+        return;
       }
       const galleryMarkup = createGalleryMarkup(data.hits);
       galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+
+      loadMoreBtnEl.classList.remove('is-hidden');
+
       simpleLightboxPlugin();
     })
     .catch(error => console.log(error.message));
@@ -49,11 +62,34 @@ function simpleLightboxPlugin() {
 }
 
 formEl.addEventListener('submit', onSearchSubmit);
-// loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 
-// function onLoadMoreClick(e) {
-//   console.dir(e);
-//   const load =
-//     e.target.previousElementSibling.previousElementSibling.elements.searchQuery
-//       .value;
-// }
+async function onLoadMoreClick(e) {
+  page += 1;
+  console.log(page);
+
+  await fetchPhoto(photoTitle, page)
+    .then(data => {
+      const galleryMarkup = createGalleryMarkup(data.hits);
+      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+      // console.log(data.total);
+      // console.log(data.totalHits);
+
+      // if (!data.hits.length) {
+      //   Notiflix.Notify.warning(
+      //     'Sorry, there are no images matching your search query. Please try again.',
+      //     { position: 'center-center' }
+      //   );
+      //   loadMoreBtnEl.classList.add('is-hidden');
+      //   return;
+      // }
+
+      // const galleryMarkup = createGalleryMarkup(data.hits);
+      // galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+
+      // loadMoreBtnEl.classList.remove('is-hidden');
+
+      // simpleLightboxPlugin();
+    })
+    .catch(error => console.log(error.message));
+}

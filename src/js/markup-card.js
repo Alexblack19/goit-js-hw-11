@@ -28,5 +28,5 @@ export function createGalleryMarkup(photoArr) {
                  </div>
                </div>
               </a>`
-      );
+      ).join();
   }

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '38572739-8ecec7d616fae8b4ce60f4b21';
 
-export const fetchPhoto = async (photoTitle) => {
+export const fetchPhoto = async (photoTitle, page) => {
   const response = await axios.get(
     `${BASE_URL}`,
     {
@@ -13,11 +13,12 @@ export const fetchPhoto = async (photoTitle) => {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        per_page: 5,
+        page: `${page}`,
+        per_page: 40,
       },
     }    
   );  
-  console.log(response.data);
+  console.log(response);
   console.log(response.data.hits);
   return response.data;
 };
