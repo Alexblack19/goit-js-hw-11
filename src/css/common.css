@@ -13,8 +13,53 @@
     overflow: hidden;
   }
 
+.search-form {        
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.gallery {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1260px;
+    display: flex;  
+    justify-content: center; 
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
 
+
+ 
+
+  .photo-card {
+    flex-basis: calc((100% - 60px) / 4);
+  }
+
+
+  
+
+.card-link {
+    text-decoration: none;
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+
+img {
+    display: block;  
+    max-width: 100%;
+    height: auto;
+  }
+
+.info-item {
+    text-align: center;
+}
 /* .info {
     display: flex;
     justify-content: space-around;
