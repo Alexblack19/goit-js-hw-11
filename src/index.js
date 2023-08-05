@@ -26,6 +26,7 @@ async function onSearchSubmit(e) {
   await fetchPhoto(photoTitle, page)
     .then(data => {
       page = 1;
+      console.log(data);
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -38,6 +39,11 @@ async function onSearchSubmit(e) {
 
       galleryMarkupDom(data.hits);
       loadMoreBtnEl.classList.remove('is-hidden');
+
+      if (data.hits.length * page === data.totalHits) {
+        loadMoreBtnEl.classList.add('is-hidden');
+        return;
+      }
     })
     .catch(error => console.log(error.message));
 }
@@ -47,24 +53,24 @@ async function onLoadMoreClick(e) {
   await fetchPhoto(photoTitle, page)
     .then(data => {
       console.log(data);
-      const totalPage = Math.ceil(data.total / data.hits.length);
-      if (totalPage > page) {
-        galleryMarkupDom(data.hits);
-        // Плавне прокручування сторінки після запиту
-        // і відтворення кожної наступної групи зображень
-        // ==============================================
-        const { height: cardHeight } = document
-          .querySelector('.gallery')
-          .firstElementChild.getBoundingClientRect();
-        window.scrollBy({
-          top: cardHeight * 2,
-          behavior: 'smooth',
-        });
-        // ===============================================
+
+      galleryMarkupDom(data.hits);
+      // Плавне прокручування сторінки після запиту
+      // і відтворення кожної наступної групи зображень
+      // ==============================================
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+      // ===============================================
+
+      if (data.hits.length * page > data.totalHits) {
+        loadMoreBtnEl.classList.add('is-hidden');
         return;
       }
-      loadMoreBtnEl.classList.add('is-hidden');
-      return;
     })
     .catch(error => console.log(error.message));
 }
@@ -85,8 +91,3 @@ function simpleLightboxPlugin() {
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
-
-
-
-
-
