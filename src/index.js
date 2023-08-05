@@ -15,7 +15,7 @@ const refs = {
 
 const { formEl, galleryListEl, loadMoreBtnEl } = refs;
 
-function onSearchSubmit(e) {
+async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
 
@@ -25,7 +25,7 @@ function onSearchSubmit(e) {
     return;
   }
 
-  fetchPhoto(photoTitle)
+  await fetchPhoto(photoTitle)
     .then(data => {
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -33,20 +33,23 @@ function onSearchSubmit(e) {
           { position: 'center-center' }
         );
       }
-
       const galleryMarkup = createGalleryMarkup(data.hits);
       galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-      new SimpleLightbox('.gallery .card-link', {
-        captionsData: 'alt',
-        captionDelay: 250,
-        enableKeyboard: true,
-      });
+      simpleLightboxPlugin();
     })
     .catch(error => console.log(error.message));
 }
 
+function simpleLightboxPlugin() {
+  new SimpleLightbox('.gallery .card-link', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    enableKeyboard: true,
+  });
+}
+
 formEl.addEventListener('submit', onSearchSubmit);
-loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+// loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 
 // function onLoadMoreClick(e) {
 //   console.dir(e);

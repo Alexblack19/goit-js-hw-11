@@ -17,6 +17,7 @@ export const fetchPhoto = async (photoTitle) => {
       },
     }    
   );  
-  console.log(response);
+  console.log(response.data);
+  console.log(response.data.hits);
   return response.data;
 };
