@@ -88,3 +88,28 @@ img:hover {
   margin-right: auto;
   margin-left: auto;
 }
+
+
+
+
+
+
+
+#go-top {
+    position: fixed; 
+    bottom: 25px; 
+    right: 70px;
+    text-align: center;
+    cursor:pointer; 
+    display:none;
+    width: 80px;
+    height: 30px;
+    background: #c0c0c0;
+    line-height: 30px;
+    border-radius: 5px;
+  }
+  
+  #go-top:hover {
+    background: #333;
+    color: #fff;
+  }

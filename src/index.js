@@ -50,6 +50,18 @@ async function onLoadMoreClick(e) {
       const totalPage = Math.ceil(data.total / data.hits.length);
       if (totalPage > page) {
         galleryMarkupDom(data.hits);
+        // Плавне прокручування сторінки після запиту
+        // і відтворення кожної наступної групи зображень
+        // ==============================================
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+        // ===============================================
+        return;
       }
       loadMoreBtnEl.classList.add('is-hidden');
       return;
@@ -73,3 +85,8 @@ function simpleLightboxPlugin() {
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+
+
+
+
+
