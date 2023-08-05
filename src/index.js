@@ -25,7 +25,7 @@ async function onSearchSubmit(e) {
 
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      page = 1;      
+      page = 1;
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -48,14 +48,11 @@ async function onLoadMoreClick(e) {
     .then(data => {
       console.log(data);
       const totalPage = Math.ceil(data.total / data.hits.length);
-      console.log(totalPage);
-      if (totalPage < page) {
-        loadMoreBtnEl.classList.add('is-hidden');
-        return;
+      if (totalPage > page) {
+        galleryMarkupDom(data.hits);
       }
-
-      galleryMarkupDom(data.hits);
-      
+      loadMoreBtnEl.classList.add('is-hidden');
+      return;
     })
     .catch(error => console.log(error.message));
 }
