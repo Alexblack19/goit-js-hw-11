@@ -25,8 +25,7 @@ async function onSearchSubmit(e) {
 
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      page = 1;
-      console.log(data);
+      page = 1;     
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
