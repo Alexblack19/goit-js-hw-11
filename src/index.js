@@ -10,7 +10,7 @@ import { createGalleryMarkup } from './js/markup-card.js';
 
 loadMoreBtnEl.classList.add('is-hidden');
 
-let page = 0;
+let page = 1;
 let photoTitle = '';
 
 async function onSearchSubmit(e) {
@@ -25,8 +25,7 @@ async function onSearchSubmit(e) {
 
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      page = 1;
-      console.log(page);
+      page = 1;      
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -45,19 +44,18 @@ async function onSearchSubmit(e) {
 
 async function onLoadMoreClick(e) {
   page += 1;
-  console.log(page);
-
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      // if (Math.ceil(data.total / data.hits.length) <= page) {
-      //   console.log(data.total);
-      //   console.log(data.hits.length);
-      //   console.log(Math.ceil(data.total / data.hits.length));
-      //   loadMoreBtnEl.classList.add('is-hidden');
-      //   return;
-      // }
+      console.log(data);
+      const totalPage = Math.ceil(data.total / data.hits.length);
+      console.log(totalPage);
+      if (totalPage < page) {
+        loadMoreBtnEl.classList.add('is-hidden');
+        return;
+      }
 
       galleryMarkupDom(data.hits);
+      
     })
     .catch(error => console.log(error.message));
 }
