@@ -59,8 +59,7 @@ function simpleLightboxPlugin() {
   });
 }
 
-formEl.addEventListener('submit', onSearchSubmit);
-loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+
 
 async function onLoadMoreClick(e) {
   page += 1;
@@ -92,7 +91,13 @@ async function onLoadMoreClick(e) {
 
       // loadMoreBtnEl.classList.remove('is-hidden');
 
-      // simpleLightboxPlugin();
+      simpleLightboxPlugin();
     })
     .catch(error => console.log(error.message));
 }
+
+
+
+
+formEl.addEventListener('submit', onSearchSubmit);
+loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
