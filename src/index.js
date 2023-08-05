@@ -4,16 +4,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // =============================================
 
+import {formEl, galleryListEl, loadMoreBtnEl} from './js/refs.js';
 import { fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
-
-const refs = {
-  formEl: document.querySelector('#search-form'),
-  galleryListEl: document.querySelector('.gallery'),
-  loadMoreBtnEl: document.querySelector('.load-more'),
-};
-
-const { formEl, galleryListEl, loadMoreBtnEl } = refs;
 
 loadMoreBtnEl.classList.add('is-hidden');
 
@@ -23,8 +16,9 @@ let photoTitle = '';
 async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
+  loadMoreBtnEl.classList.add('is-hidden');
 
-  photoTitle = e.target.firstElementChild.value.trim();
+  photoTitle = e.target.firstElementChild.value.trim();  
   if (photoTitle === '') {
     return;
   }
@@ -41,22 +35,11 @@ async function onSearchSubmit(e) {
         loadMoreBtnEl.classList.add('is-hidden');
         return;
       }
-      const galleryMarkup = createGalleryMarkup(data.hits);
-      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
 
+      galleryMarkupDom(data.hits);
       loadMoreBtnEl.classList.remove('is-hidden');
-
-      simpleLightboxPlugin();
     })
     .catch(error => console.log(error.message));
-}
-
-function simpleLightboxPlugin() {
-  new SimpleLightbox('.gallery .card-link', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    enableKeyboard: true,
-  });
 }
 
 async function onLoadMoreClick(e) {
@@ -73,12 +56,23 @@ async function onLoadMoreClick(e) {
       //   return;
       // }
 
-      const galleryMarkup = createGalleryMarkup(data.hits);
-      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-
-      simpleLightboxPlugin();
+      galleryMarkupDom(data.hits);
     })
     .catch(error => console.log(error.message));
+}
+
+function galleryMarkupDom(photoArr) {
+  const galleryMarkup = createGalleryMarkup(photoArr);
+  galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+  simpleLightboxPlugin();
+}
+
+function simpleLightboxPlugin() {
+  new SimpleLightbox('.gallery .card-link', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    enableKeyboard: true,
+  });
 }
 
 formEl.addEventListener('submit', onSearchSubmit);
