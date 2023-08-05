@@ -48,9 +48,9 @@ function onSearchSubmit(e) {
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 
-function onLoadMoreClick(e) {
-  console.dir(e);
-  const load =
-    e.target.previousElementSibling.previousElementSibling.elements.searchQuery
-      .value;
-}
+// function onLoadMoreClick(e) {
+//   console.dir(e);
+//   const load =
+//     e.target.previousElementSibling.previousElementSibling.elements.searchQuery
+//       .value;
+// }
