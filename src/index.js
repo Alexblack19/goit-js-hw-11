@@ -32,8 +32,6 @@ async function onSearchSubmit(e) {
   await fetchPhoto(photoTitle, page)
     .then(data => {
       page = 1;
-      console.log(data.total);
-      console.log(data.totalHits);
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
@@ -70,8 +68,13 @@ async function onLoadMoreClick(e) {
 
   await fetchPhoto(photoTitle, page)
     .then(data => {
+      if (Math.ceil(data.total / data.hits.length) < page) {
+        return;
+      }
+
       const galleryMarkup = createGalleryMarkup(data.hits);
       galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
+
       // console.log(data.total);
       // console.log(data.totalHits);
 
