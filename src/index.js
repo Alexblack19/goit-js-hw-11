@@ -4,13 +4,13 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // =============================================
 
-import {formEl, galleryListEl, loadMoreBtnEl} from './js/refs.js';
+import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
 import { fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 
 loadMoreBtnEl.classList.add('is-hidden');
 
-let page = 1;
+let page = 0;
 let photoTitle = '';
 
 async function onSearchSubmit(e) {
@@ -18,7 +18,7 @@ async function onSearchSubmit(e) {
   galleryListEl.innerHTML = '';
   loadMoreBtnEl.classList.add('is-hidden');
 
-  photoTitle = e.target.firstElementChild.value.trim();  
+  photoTitle = e.target.firstElementChild.value.trim();
   if (photoTitle === '') {
     return;
   }
@@ -26,6 +26,7 @@ async function onSearchSubmit(e) {
   await fetchPhoto(photoTitle, page)
     .then(data => {
       page = 1;
+      console.log(page);
 
       if (!data.hits.length) {
         Notiflix.Notify.warning(
