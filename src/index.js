@@ -59,45 +59,27 @@ function simpleLightboxPlugin() {
   });
 }
 
-
-
 async function onLoadMoreClick(e) {
   page += 1;
   console.log(page);
 
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      if (Math.ceil(data.total / data.hits.length) < page) {
-        return;
-      }
-
-      const galleryMarkup = createGalleryMarkup(data.hits);
-      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-
-      // console.log(data.total);
-      // console.log(data.totalHits);
-
-      // if (!data.hits.length) {
-      //   Notiflix.Notify.warning(
-      //     'Sorry, there are no images matching your search query. Please try again.',
-      //     { position: 'center-center' }
-      //   );
+      // if (Math.ceil(data.total / data.hits.length) <= page) {
+      //   console.log(data.total);
+      //   console.log(data.hits.length);
+      //   console.log(Math.ceil(data.total / data.hits.length));
       //   loadMoreBtnEl.classList.add('is-hidden');
       //   return;
       // }
 
-      // const galleryMarkup = createGalleryMarkup(data.hits);
-      // galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
-
-      // loadMoreBtnEl.classList.remove('is-hidden');
+      const galleryMarkup = createGalleryMarkup(data.hits);
+      galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
 
       simpleLightboxPlugin();
     })
     .catch(error => console.log(error.message));
 }
-
-
-
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
