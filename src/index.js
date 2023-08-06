@@ -19,7 +19,7 @@ async function onSearchSubmit(e) {
   loadMoreBtnEl.classList.add('is-hidden');
 
   photoTitle = e.target.firstElementChild.value.trim();
-  if (photoTitle === '') {
+  if (!photoTitle) {
     return;
   }
 
@@ -90,3 +90,5 @@ function simpleLightboxPlugin() {
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+
+
