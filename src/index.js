@@ -92,3 +92,8 @@ formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 
 
+
+
+
+
+
