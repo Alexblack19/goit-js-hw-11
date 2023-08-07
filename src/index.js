@@ -58,6 +58,9 @@ async function onLoadMoreClick(e) {
 
       if (data.hits.length * page > data.totalHits) {
         loadMoreBtnEl.classList.add('is-hidden');
+        Notiflix.Notify.info(
+          "We're sorry, but you've reached the end of search results.",
+          { position: 'center-center' })
         return;
       }
     })
