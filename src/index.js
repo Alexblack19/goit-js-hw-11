@@ -22,9 +22,12 @@ async function onSearchSubmit(e) {
   if (!photoTitle) {
     return;
   }
+
   page = 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
+      Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
+
       if (!data.hits.length) {
         Notiflix.Notify.warning(
           'Sorry, there are no images matching your search query. Please try again.',
@@ -33,8 +36,6 @@ async function onSearchSubmit(e) {
         loadMoreBtnEl.classList.add('is-hidden');
         return;
       }
-      
-      Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
       galleryMarkupDom(data.hits);
       loadMoreBtnEl.classList.remove('is-hidden');
@@ -51,11 +52,6 @@ async function onLoadMoreClick(e) {
   page += 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      galleryMarkupDom(data.hits);
-
-      smoothScrollGallery();
-      console.dir(galleryListEl);
-
       if (data.hits.length * page > data.totalHits) {
         loadMoreBtnEl.classList.add('is-hidden');
         Notiflix.Notify.info(
@@ -64,6 +60,9 @@ async function onLoadMoreClick(e) {
         );
         return;
       }
+
+      galleryMarkupDom(data.hits);
+      smoothScrollGallery();
     })
     .catch(error => console.log(error.message));
 }

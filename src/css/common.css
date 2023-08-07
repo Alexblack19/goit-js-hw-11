@@ -1,6 +1,11 @@
 body {
   margin: 0;
-  background-color: #f7eedf;
+  /* background-color: #f7eedf; */
+  background-image: linear-gradient(
+    to right,   
+    #00b9ff 20%,
+    #ffb800
+  );
 }
 
 button {
@@ -38,11 +43,6 @@ img:hover {
   padding-bottom: 15px;
   margin-bottom: 5px;
   text-align: center;
-  background-image: linear-gradient(
-    to right,   
-    #00b9ff 20%,
-    #ffb800
-  );
 }
 
 .gallery {
