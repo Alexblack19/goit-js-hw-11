@@ -54,17 +54,9 @@ async function onLoadMoreClick(e) {
       console.log(data);
 
       galleryMarkupDom(data.hits);
-      // Плавне прокручування сторінки після запиту
-      // і відтворення кожної наступної групи зображень
-      // ==============================================
-      const { height: cardHeight } = document
-        .querySelector('.gallery')
-        .firstElementChild.getBoundingClientRect();
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
-      // ===============================================
+
+      smoothScrollGallery();
+      console.dir(galleryListEl);
 
       if (data.hits.length * page > data.totalHits) {
         loadMoreBtnEl.classList.add('is-hidden');
@@ -88,12 +80,14 @@ function simpleLightboxPlugin() {
   });
 }
 
+function smoothScrollGallery() {
+  const { height: cardHeight } =
+    galleryListEl.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
+
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
-
-
-
-
-
-
-
