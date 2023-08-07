@@ -52,6 +52,9 @@ async function onLoadMoreClick(e) {
   page += 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
+      console.log(data);
+      console.log(page);
+
       if (data.hits.length * page > data.totalHits) {
         loadMoreBtnEl.classList.add('is-hidden');
         Notiflix.Notify.info(
