@@ -21,7 +21,7 @@ async function onSearchSubmit(e) {
   photoTitle = e.target.firstElementChild.value.trim();
   if (!photoTitle) {
     return;
-  }  
+  }
   page = 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
@@ -33,6 +33,8 @@ async function onSearchSubmit(e) {
         loadMoreBtnEl.classList.add('is-hidden');
         return;
       }
+      
+      Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
       galleryMarkupDom(data.hits);
       loadMoreBtnEl.classList.remove('is-hidden');
@@ -49,8 +51,6 @@ async function onLoadMoreClick(e) {
   page += 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      console.log(data);
-
       galleryMarkupDom(data.hits);
 
       smoothScrollGallery();
@@ -60,7 +60,8 @@ async function onLoadMoreClick(e) {
         loadMoreBtnEl.classList.add('is-hidden');
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results.",
-          { position: 'center-center' })
+          { position: 'center-center' }
+        );
         return;
       }
     })
@@ -85,7 +86,7 @@ function smoothScrollGallery() {
   const { height: cardHeight } =
     galleryListEl.firstElementChild.getBoundingClientRect();
   window.scrollBy({
-    top: cardHeight * 2,    
+    top: cardHeight * 2,
     behavior: 'smooth',
   });
 }

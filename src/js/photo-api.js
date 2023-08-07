@@ -14,7 +14,6 @@ export const fetchPhoto = async (photoTitle, page) => {
       page: page,
       per_page: 40,
     },
-  });   
-  console.log(response);
+  });
   return response.data;
 };
