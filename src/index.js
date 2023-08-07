@@ -21,12 +21,10 @@ async function onSearchSubmit(e) {
   photoTitle = e.target.firstElementChild.value.trim();
   if (!photoTitle) {
     return;
-  }
-
+  }  
+  page = 1;
   await fetchPhoto(photoTitle, page)
     .then(data => {
-      page = 1;
-
       if (!data.hits.length) {
         Notiflix.Notify.warning(
           'Sorry, there are no images matching your search query. Please try again.',
