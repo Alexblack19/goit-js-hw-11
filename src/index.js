@@ -106,3 +106,12 @@ function scrollGalleryStart() {
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 upScrollBtnEl.addEventListener('click', scrollGalleryStart);
+
+window.addEventListener('scroll', () => {
+  // визначаємо величину прокручування
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  // якщо сторінка прокручена більше ніж на 400px, то робимо кнопку видимой, інакше ховаємо
+  scrollY > 400
+    ? upScrollBtnEl.classList.remove('is-hidden')
+    : upScrollBtnEl.classList.add('is-hidden');
+});
