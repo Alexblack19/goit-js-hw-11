@@ -4,7 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // ==================================================
 
-// import './css/common.css'
+import './img/icons.svg'
 
 // const cardHeight = photo-card (flex-basis)
 // console.log(cardHeight);
@@ -100,12 +100,12 @@ function smoothScrollGallery() {
 
 // ==============================================================
 
-// const upBtnMarkup = `<button type="button" class="upscroll-btn">
-//                  <svg class="icon-uparrow" width="16" height="16">
-//                     <use href="./img/icons.svg#icon-icon-footer-youtube"></use>
-//                  </svg>
-//                </button>`;
-// loadMoreBtnEl.insertAdjacentHTML('afterend', upBtnMarkup);
+const upBtnMarkup = `<button type="button" class="upscroll-btn">
+<svg class="icon-uparrow" width="16" height="16">
+  <use href="icons.svg#icon-uparrow"></use>
+</svg>
+</button>`;
+loadMoreBtnEl.insertAdjacentHTML('afterend', upBtnMarkup);
 
 function scrollGalleryStart() {
   window.scroll({
