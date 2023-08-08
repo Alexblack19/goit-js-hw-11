@@ -1,4 +1,5 @@
 body {  
+  position: relative;
   background-image: linear-gradient(
     to right,   
     #00b9ff 20%,
@@ -107,18 +108,21 @@ img:hover {
 }
 
 .upscroll-btn {
+  position: fixed;
+  bottom: 20px; 
+  right: 20px; 
+
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100px;
   height: 100px;
-  color: #e7480d;
   
-  /* border-radius: 50%; */
+  border-radius: 50%;
 }
 
 .icon-uparrow {    
-  fill: currentColor;
+  color: green;
   width: 40px;
   height: 40px; 
 }
