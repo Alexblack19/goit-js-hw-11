@@ -88,21 +88,24 @@ function simpleLightboxPlugin() {
   });
 }
 
-// function smoothScrollGallery() {
-//   console.dir(galleryListEl);
-//   const { height: cardHeight } =
-//     galleryListEl.firstElementChild.getBoundingClientRect();
-//   window.scrollBy({
-//     top: cardHeight * 2,
-//     behavior: 'smooth',
-//   });
-// }
-
+function smoothScrollGallery() {
+  console.dir(galleryListEl);
+  const { height: cardHeight } =
+    galleryListEl.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
 
 // ==============================================================
 
-const upBtn = `<button type="button" class="upscroll-btn">&#9757;</button>`;  
-  loadMoreBtnEl.insertAdjacentHTML('afterend', upBtn);
+const upBtnMarkup = `<button type="button" class="upscroll-btn">
+                 <svg class="icon-uparrow" width="16" height="16">
+                    <use href="./img/icons.svg#icon-uparrow"></use>
+                 </svg>
+               </button>`;
+loadMoreBtnEl.insertAdjacentHTML('afterend', upBtnMarkup);
 
 function scrollGalleryStart() {
   window.scroll({
@@ -111,8 +114,8 @@ function scrollGalleryStart() {
     behavior: 'smooth',
   });
 }
-const upScrollBtnEl = document.querySelector('.upscroll-btn')
-upScrollBtnEl/addEventListener('click', scrollGalleryStart)
+const upScrollBtnEl = document.querySelector('.upscroll-btn');
+upScrollBtnEl.addEventListener('click', scrollGalleryStart);
 // ==============================================================
 
 formEl.addEventListener('submit', onSearchSubmit);

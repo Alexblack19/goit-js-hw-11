@@ -7,13 +7,21 @@ body {
 }
 
 button {
-  padding-left: 10px;
-  padding-right: 10px;
   cursor: pointer;
-  background-color: #96e9e6;
-  border-radius: 5px;
 }
-button:hover {  
+
+button[type="submit"],
+.load-more {
+  padding-left: 10px;
+  padding-right: 10px;  
+  background-color: #96e9e6;
+  border-radius: 5px;  
+  color: #3b3a3f;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button[type="submit"]:hover,
+.load-more:hover {  
   background-color: #b3d1f9;
 }
 
@@ -99,9 +107,20 @@ img:hover {
 }
 
 .upscroll-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  color: #e7480d;
+  
+  /* border-radius: 50%; */
+}
+
+.icon-uparrow {    
+  fill: currentColor;
   width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  height: 40px; 
 }
 
 
