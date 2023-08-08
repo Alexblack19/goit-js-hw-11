@@ -4,6 +4,16 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // ==================================================
 
+// import './css/common.css'
+
+// const cardHeight = photo-card (flex-basis)
+// console.log(cardHeight);
+
+// console.log(window.getComputedStyle());
+
+
+
+
 import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
@@ -81,14 +91,25 @@ function simpleLightboxPlugin() {
   });
 }
 
-function smoothScrollGallery() {
-  const { height: cardHeight } =
-    galleryListEl.firstElementChild.getBoundingClientRect();
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: 'smooth',
+// function smoothScrollGallery() {
+//   console.dir(galleryListEl);
+//   const { height: cardHeight } =
+//     galleryListEl.firstElementChild.getBoundingClientRect();
+//   window.scrollBy({
+//     top: cardHeight * 2,
+//     behavior: 'smooth',
+//   });
+// }
+
+function smoothUpScrollGallery() {
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
   });
 }
+
+
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
