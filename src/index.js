@@ -32,7 +32,6 @@ async function onSearchSubmit(e) {
   page = 1;
   try {
     const data = await fetchPhoto(photoTitle, page);
-    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
     if (!data.hits.length) {
       Notiflix.Notify.warning(
@@ -49,6 +48,7 @@ async function onSearchSubmit(e) {
       loadMoreBtnEl.classList.remove('is-hidden');
     }
 
+    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     galleryMarkupDom(data.hits);
   } catch (error) {
     console.log(error.message);
@@ -65,8 +65,7 @@ async function onLoadMoreClick(e) {
     if (numRequestedPhotos * page >= data.totalHits) {
       loadMoreBtnEl.classList.add('is-hidden');
       Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results.",
-        { position: 'center-center' }
+        "We're sorry, but you've reached the end of search results.",        
       );
     }
   } catch (error) {
