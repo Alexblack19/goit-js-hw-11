@@ -4,13 +4,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // ==================================================
 
-import './img/icons.svg'
-
-// const cardHeight = photo-card (flex-basis)
-// console.log(cardHeight);
-
-// console.log(window.getComputedStyle());
-
 import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
@@ -89,23 +82,12 @@ function simpleLightboxPlugin() {
 }
 
 function smoothScrollGallery() {
-  console.dir(galleryListEl);
-  const { height: cardHeight } =
-    galleryListEl.firstElementChild.getBoundingClientRect();
+  const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
   window.scrollBy({
-    top: cardHeight * 2,
+    top: height * 2,
     behavior: 'smooth',
   });
 }
-
-// ==============================================================
-
-const upBtnMarkup = `<button type="button" class="upscroll-btn">
-<svg class="icon-uparrow" width="16" height="16">
-  <use href="icons.svg#icon-uparrow"></use>
-</svg>
-</button>`;
-loadMoreBtnEl.insertAdjacentHTML('afterend', upBtnMarkup);
 
 function scrollGalleryStart() {
   window.scroll({
@@ -114,9 +96,9 @@ function scrollGalleryStart() {
     behavior: 'smooth',
   });
 }
+//
 const upScrollBtnEl = document.querySelector('.upscroll-btn');
-upScrollBtnEl.addEventListener('click', scrollGalleryStart);
-// ==============================================================
-
+//
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
+upScrollBtnEl.addEventListener('click', scrollGalleryStart);
