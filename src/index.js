@@ -1,15 +1,14 @@
-//=========== Підключення бібліотек ============
+//============= Підключення бібліотек ===============
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-// =============================================
+// ==================================================
 
 import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
-import { fetchPhoto } from './js/photo-api.js';
+import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 
 loadMoreBtnEl.classList.add('is-hidden');
-
 let page = 1;
 let photoTitle = '';
 
@@ -24,50 +23,48 @@ async function onSearchSubmit(e) {
   }
 
   page = 1;
-  await fetchPhoto(photoTitle, page)
-    .then(data => {
-      Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
+  try {
+    const data = await fetchPhoto(photoTitle, page);
+    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
-      if (!data.hits.length) {
-        Notiflix.Notify.warning(
-          'Sorry, there are no images matching your search query. Please try again.',
-          { position: 'center-center' }
-        );
-        loadMoreBtnEl.classList.add('is-hidden');
-        return;
-      }
+    if (!data.hits.length) {
+      Notiflix.Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.',
+        { position: 'center-center' }
+      );
+      loadMoreBtnEl.classList.add('is-hidden');
+      return;
+    }
 
-      galleryMarkupDom(data.hits);
+    if (data.hits.length * page === data.totalHits) {
+      loadMoreBtnEl.classList.add('is-hidden');
+    } else {
       loadMoreBtnEl.classList.remove('is-hidden');
+    }
 
-      if (data.hits.length * page === data.totalHits) {
-        loadMoreBtnEl.classList.add('is-hidden');
-        return;
-      }
-    })
-    .catch(error => console.log(error.message));
+    galleryMarkupDom(data.hits);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 async function onLoadMoreClick(e) {
   page += 1;
-  await fetchPhoto(photoTitle, page)
-    .then(data => {
-      console.log(data);
-      console.log(page);
+  try {
+    const data = await fetchPhoto(photoTitle, page);
+    galleryMarkupDom(data.hits);
+    smoothScrollGallery();
 
-      if (data.hits.length * page > data.totalHits) {
-        loadMoreBtnEl.classList.add('is-hidden');
-        Notiflix.Notify.info(
-          "We're sorry, but you've reached the end of search results.",
-          { position: 'center-center' }
-        );
-        return;
-      }
-
-      galleryMarkupDom(data.hits);
-      smoothScrollGallery();
-    })
-    .catch(error => console.log(error.message));
+    if (numRequestedPhotos * page >= data.totalHits) {
+      loadMoreBtnEl.classList.add('is-hidden');
+      Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results.",
+        { position: 'center-center' }
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 function galleryMarkupDom(photoArr) {
