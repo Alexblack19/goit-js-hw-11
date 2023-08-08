@@ -102,7 +102,7 @@ function smoothScrollGallery() {
 
 const upBtnMarkup = `<button type="button" class="upscroll-btn">
                  <svg class="icon-uparrow" width="16" height="16">
-                    <use href="./img/icons.svg#icon-uparrow"></use>
+                    <use href="./img/icons.svg#icon-icon-footer-youtube"></use>
                  </svg>
                </button>`;
 loadMoreBtnEl.insertAdjacentHTML('afterend', upBtnMarkup);

@@ -108,6 +108,7 @@ img:hover {
 }
 
 .upscroll-btn {
+  padding: 0;
   position: fixed;
   bottom: 20px; 
   right: 20px; 
