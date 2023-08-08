@@ -116,17 +116,15 @@ img:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
+
+  border: none;
   
   border-radius: 50%;
 }
 
-.icon-uparrow {    
-  color: green;
-  width: 40px;
-  height: 40px; 
-}
+
 
 
 

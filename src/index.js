@@ -4,11 +4,17 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 // ==================================================
 
-import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
+import {
+  formEl,
+  galleryListEl,
+  loadMoreBtnEl,
+  upScrollBtnEl,
+} from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 
 loadMoreBtnEl.classList.add('is-hidden');
+upScrollBtnEl.classList.add('is-hidden');
 let page = 1;
 let photoTitle = '';
 
@@ -92,13 +98,11 @@ function smoothScrollGallery() {
 function scrollGalleryStart() {
   window.scroll({
     top: 0,
-    left: 0,
+    // left: 0,
     behavior: 'smooth',
   });
 }
-//
-const upScrollBtnEl = document.querySelector('.upscroll-btn');
-//
+
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 upScrollBtnEl.addEventListener('click', scrollGalleryStart);
