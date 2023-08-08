@@ -15,6 +15,7 @@ import { createGalleryMarkup } from './js/markup-card.js';
 
 loadMoreBtnEl.classList.add('is-hidden');
 upScrollBtnEl.classList.add('is-hidden');
+
 let page = 1;
 let photoTitle = '';
 
@@ -98,7 +99,6 @@ function smoothScrollGallery() {
 function scrollGalleryStart() {
   window.scroll({
     top: 0,
-    // left: 0,
     behavior: 'smooth',
   });
 }
@@ -110,7 +110,7 @@ upScrollBtnEl.addEventListener('click', scrollGalleryStart);
 window.addEventListener('scroll', () => {
   // визначаємо величину прокручування
   const scrollY = window.scrollY || document.documentElement.scrollTop;
-  // якщо сторінка прокручена більше ніж на 400px, то робимо кнопку видимой, інакше ховаємо
+  // якщо сторінка прокручена більше ніж на 400px, то кнопку показуємо, інакше ховаємо
   scrollY > 400
     ? upScrollBtnEl.classList.remove('is-hidden')
     : upScrollBtnEl.classList.add('is-hidden');
