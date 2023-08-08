@@ -6,10 +6,6 @@ body {
   );
 }
 
-.search-form input {
-  border-radius: 5px;  
-}
-
 button {
   padding-left: 10px;
   padding-right: 10px;
@@ -30,6 +26,10 @@ img {
 
 img:hover {
   transform: scale(1.02);
+}
+
+.search-form input {
+  border-radius: 5px;  
 }
 
 .is-hidden {
@@ -96,6 +96,12 @@ img:hover {
   margin-bottom: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.upscroll-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 

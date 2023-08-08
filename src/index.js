@@ -11,9 +11,6 @@ import Notiflix from 'notiflix';
 
 // console.log(window.getComputedStyle());
 
-
-
-
 import { formEl, galleryListEl, loadMoreBtnEl } from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
@@ -101,15 +98,22 @@ function simpleLightboxPlugin() {
 //   });
 // }
 
-function smoothUpScrollGallery() {
+
+// ==============================================================
+
+const upBtn = `<button type="button" class="upscroll-btn">&#9757;</button>`;  
+  loadMoreBtnEl.insertAdjacentHTML('afterend', upBtn);
+
+function scrollGalleryStart() {
   window.scroll({
     top: 0,
     left: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 }
-
-
+const upScrollBtnEl = document.querySelector('.upscroll-btn')
+upScrollBtnEl/addEventListener('click', scrollGalleryStart)
+// ==============================================================
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
