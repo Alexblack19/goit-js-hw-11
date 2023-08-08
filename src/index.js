@@ -65,7 +65,7 @@ async function onLoadMoreClick(e) {
     if (numRequestedPhotos * page >= data.totalHits) {
       loadMoreBtnEl.classList.add('is-hidden');
       Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results.",        
+        "We're sorry, but you've reached the end of search results."
       );
     }
   } catch (error) {
