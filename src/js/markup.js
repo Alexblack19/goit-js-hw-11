@@ -1,15 +1,15 @@
 export function createGalleryMarkup(photoArr) {
-    return photoArr
-      .map(
-        ({
-          webformatURL,
-          largeImageURL,
-          tags,
-          likes,
-          views,
-          comments,
-          downloads,
-        }) => `<div class="photo-card">
+  return photoArr
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `<div class="photo-card">
                  <a class="card-link" href="${largeImageURL}">
                     <img src="${webformatURL}" alt="${tags}" loading="lazy" />
                     <div class="info">
@@ -28,5 +28,6 @@ export function createGalleryMarkup(photoArr) {
                     </div>
                  </a>
                </div>`
-      ).join('');
-  }
+    )
+    .join('');
+}

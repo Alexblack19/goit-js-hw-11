@@ -11,7 +11,7 @@ import {
   upScrollBtnEl,
 } from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
-import { createGalleryMarkup } from './js/markup-card.js';
+import { createGalleryMarkup } from './js/markup.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
 import {
   loadBtnOff,
@@ -35,11 +35,9 @@ async function onSearchSubmit(e) {
   if (!photoTitle) {
     return;
   }
-
   page = 1;
   try {
     const data = await fetchPhoto(photoTitle, page);
-
     if (!data.hits.length) {
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.',
@@ -48,13 +46,11 @@ async function onSearchSubmit(e) {
       loadBtnOff;
       return;
     }
-
     if (data.hits.length * page === data.totalHits) {
       loadBtnOff;
     } else {
       loadBtnOn;
     }
-
     Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     galleryMarkupDom(data.hits);
   } catch (error) {
@@ -68,7 +64,6 @@ async function onLoadMoreClick(e) {
     const data = await fetchPhoto(photoTitle, page);
     galleryMarkupDom(data.hits);
     smoothScrollGallery();
-
     if (numRequestedPhotos * page >= data.totalHits) {
       loadBtnOff;
       Notiflix.Notify.info(
@@ -86,6 +81,10 @@ function galleryMarkupDom(photoArr) {
   simpleLightboxPlugin();
 }
 
+
+
+
+
 function smoothScrollGallery() {
   const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
   window.scrollBy({
@@ -94,7 +93,7 @@ function smoothScrollGallery() {
   });
 }
 
-function scrollGalleryStart() {
+function onScrollGalleryStart() {
   window.scroll({
     top: 0,
     behavior: 'smooth',
@@ -103,7 +102,7 @@ function scrollGalleryStart() {
 
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
-upScrollBtnEl.addEventListener('click', scrollGalleryStart);
+upScrollBtnEl.addEventListener('click', onScrollGalleryStart);
 
 window.addEventListener('scroll', () => {
   // визначаємо величину прокручування
