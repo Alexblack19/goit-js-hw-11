@@ -13,7 +13,12 @@ import {
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
-import { loadBtnOff, loadBtnOn, scrollBtnOff, scrollBtnOn} from './js/btn-toggle.js';
+import {
+  loadBtnOff,
+  loadBtnOn,
+  scrollBtnOff,
+  scrollBtnOn,
+} from './js/btn-toggle.js';
 
 loadBtnOff;
 scrollBtnOff;
@@ -24,7 +29,7 @@ let photoTitle = '';
 async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
-  loadMoreBtnEl.classList.add('is-hidden');
+  loadBtnOff;
 
   photoTitle = e.target.firstElementChild.value.trim();
   if (!photoTitle) {
@@ -40,14 +45,14 @@ async function onSearchSubmit(e) {
         'Sorry, there are no images matching your search query. Please try again.',
         { position: 'center-center' }
       );
-      loadMoreBtnEl.classList.add('is-hidden');
+      loadBtnOff;
       return;
     }
 
     if (data.hits.length * page === data.totalHits) {
-      loadMoreBtnEl.classList.add('is-hidden');
+      loadBtnOff;
     } else {
-      loadMoreBtnEl.classList.remove('is-hidden');
+      loadBtnOn;
     }
 
     Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
@@ -65,7 +70,7 @@ async function onLoadMoreClick(e) {
     smoothScrollGallery();
 
     if (numRequestedPhotos * page >= data.totalHits) {
-      loadMoreBtnEl.classList.add('is-hidden');
+      loadBtnOff;
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
@@ -80,8 +85,6 @@ function galleryMarkupDom(photoArr) {
   galleryListEl.insertAdjacentHTML('beforeend', galleryMarkup);
   simpleLightboxPlugin();
 }
-
-
 
 function smoothScrollGallery() {
   const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
@@ -106,7 +109,5 @@ window.addEventListener('scroll', () => {
   // визначаємо величину прокручування
   const scrollY = window.scrollY || document.documentElement.scrollTop;
   // якщо сторінка прокручена більше ніж на 400px, то кнопку показуємо, інакше ховаємо
-  scrollY > 400
-    ? upScrollBtnEl.classList.remove('is-hidden')
-    : upScrollBtnEl.classList.add('is-hidden');
+  scrollY > 400 ? scrollBtnOn : scrollBtnOff;
 });
