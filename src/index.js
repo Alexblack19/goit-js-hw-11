@@ -111,3 +111,4 @@ function scrollBtnOff() {
 function scrollBtnOn() {
   upScrollBtnEl.classList.remove('is-hidden');
 }
+
