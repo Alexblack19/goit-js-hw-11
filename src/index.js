@@ -13,10 +13,10 @@ import {
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
+import { loadBtnOff, loadBtnOn, scrollBtnOff, scrollBtnOn} from './js/btn-toggle.js';
 
-
-loadMoreBtnEl.classList.add('is-hidden');
-upScrollBtnEl.classList.add('is-hidden');
+loadBtnOff;
+scrollBtnOff;
 
 let page = 1;
 let photoTitle = '';
