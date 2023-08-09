@@ -12,6 +12,8 @@ import {
 } from './js/refs.js';
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup-card.js';
+import { simpleLightboxPlugin } from './js/lightbox.js';
+
 
 loadMoreBtnEl.classList.add('is-hidden');
 upScrollBtnEl.classList.add('is-hidden');
@@ -79,13 +81,7 @@ function galleryMarkupDom(photoArr) {
   simpleLightboxPlugin();
 }
 
-function simpleLightboxPlugin() {
-  new SimpleLightbox('.gallery .card-link', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    enableKeyboard: true,
-  });
-}
+
 
 function smoothScrollGallery() {
   const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
