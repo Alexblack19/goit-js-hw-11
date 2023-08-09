@@ -13,6 +13,7 @@ import {
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
+
 import {
   loadBtnOff,
   loadBtnOn,
@@ -20,8 +21,8 @@ import {
   scrollBtnOn,
 } from './js/btn-toggle.js';
 
-loadBtnOff;
-scrollBtnOff;
+loadBtnOff();
+scrollBtnOff();
 
 let page = 1;
 let photoTitle = '';
@@ -29,7 +30,7 @@ let photoTitle = '';
 async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
-  loadBtnOff;
+  loadBtnOff();
 
   photoTitle = e.target.firstElementChild.value.trim();
   if (!photoTitle) {
@@ -43,13 +44,13 @@ async function onSearchSubmit(e) {
         'Sorry, there are no images matching your search query. Please try again.',
         { position: 'center-center' }
       );
-      loadBtnOff;
+      loadBtnOff();
       return;
     }
     if (data.hits.length * page === data.totalHits) {
-      loadBtnOff;
+      loadBtnOff();
     } else {
-      loadBtnOn;
+      loadBtnOn();
     }
     Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     galleryMarkupDom(data.hits);
@@ -104,5 +105,5 @@ window.addEventListener('scroll', () => {
   // визначаємо величину прокручування
   const scrollY = window.scrollY || document.documentElement.scrollTop;
   // якщо сторінка прокручена більше ніж на 400px, то кнопку показуємо, інакше ховаємо
-  scrollY > 400 ? scrollBtnOn : scrollBtnOff;
+  scrollY > 400 ? scrollBtnOn() : scrollBtnOff();
 });
