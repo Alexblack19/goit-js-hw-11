@@ -81,10 +81,6 @@ function galleryMarkupDom(photoArr) {
   simpleLightboxPlugin();
 }
 
-
-
-
-
 function smoothScrollGallery() {
   const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
   window.scrollBy({
