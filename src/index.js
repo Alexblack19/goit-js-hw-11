@@ -1,8 +1,6 @@
-//============= Підключення бібліотек ===============
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+//=== Підключення бібліотеки ===
 import Notiflix from 'notiflix';
-// ==================================================
+// =============================
 
 import {
   formEl,
@@ -13,13 +11,6 @@ import {
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
-
-import {
-  loadBtnOff,
-  loadBtnOn,
-  scrollBtnOff,
-  scrollBtnOn,
-} from './js/btn-toggle.js';
 
 loadBtnOff();
 scrollBtnOff();
@@ -107,3 +98,16 @@ window.addEventListener('scroll', () => {
   // якщо сторінка прокручена більше ніж на 400px, то кнопку показуємо, інакше ховаємо
   scrollY > 400 ? scrollBtnOn() : scrollBtnOff();
 });
+
+function loadBtnOff() {
+  loadMoreBtnEl.classList.add('is-hidden');
+}
+function loadBtnOn() {
+  loadMoreBtnEl.classList.remove('is-hidden');
+}
+function scrollBtnOff() {
+  upScrollBtnEl.classList.add('is-hidden');
+}
+function scrollBtnOn() {
+  upScrollBtnEl.classList.remove('is-hidden');
+}
