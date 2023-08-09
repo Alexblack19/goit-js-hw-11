@@ -11,9 +11,19 @@ import {
 import { numRequestedPhotos, fetchPhoto } from './js/photo-api.js';
 import { createGalleryMarkup } from './js/markup.js';
 import { simpleLightboxPlugin } from './js/lightbox.js';
+import {
+  loadBtnOff,
+  loadBtnOn,
+  scrollBtnOff,
+  scrollBtnOn,
+} from './js/btn-toggle.js';
+import {
+  smoothScrollGallery,
+  onScrollGalleryStart,
+} from './js/scroll-gallery.js';
 
-loadBtnOff();
-scrollBtnOff();
+loadBtnOff(loadMoreBtnEl);
+scrollBtnOff(upScrollBtnEl);
 
 let page = 1;
 let photoTitle = '';
@@ -21,7 +31,7 @@ let photoTitle = '';
 async function onSearchSubmit(e) {
   e.preventDefault();
   galleryListEl.innerHTML = '';
-  loadBtnOff();
+  loadBtnOff(loadMoreBtnEl);
 
   photoTitle = e.target.firstElementChild.value.trim();
   if (!photoTitle) {
@@ -35,13 +45,13 @@ async function onSearchSubmit(e) {
         'Sorry, there are no images matching your search query. Please try again.',
         { position: 'center-center' }
       );
-      loadBtnOff();
+      loadBtnOff(loadMoreBtnEl);
       return;
     }
     if (data.hits.length * page === data.totalHits) {
-      loadBtnOff();
+      loadBtnOff(loadMoreBtnEl);
     } else {
-      loadBtnOn();
+      loadBtnOn(loadMoreBtnEl);
     }
     Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     galleryMarkupDom(data.hits);
@@ -55,9 +65,9 @@ async function onLoadMoreClick(e) {
   try {
     const data = await fetchPhoto(photoTitle, page);
     galleryMarkupDom(data.hits);
-    smoothScrollGallery();
+    smoothScrollGallery(galleryListEl);
     if (numRequestedPhotos * page >= data.totalHits) {
-      loadBtnOff();
+      loadBtnOff(loadMoreBtnEl);
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
@@ -73,21 +83,6 @@ function galleryMarkupDom(photoArr) {
   simpleLightboxPlugin();
 }
 
-function smoothScrollGallery() {
-  const { height } = galleryListEl.firstElementChild.getBoundingClientRect();
-  window.scrollBy({
-    top: height * 2,
-    behavior: 'smooth',
-  });
-}
-
-function onScrollGalleryStart() {
-  window.scroll({
-    top: 0,
-    behavior: 'smooth',
-  });
-}
-
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMoreClick);
 upScrollBtnEl.addEventListener('click', onScrollGalleryStart);
@@ -96,19 +91,5 @@ window.addEventListener('scroll', () => {
   // визначаємо величину прокручування
   const scrollY = window.scrollY || document.documentElement.scrollTop;
   // якщо сторінка прокручена більше ніж на 400px, то кнопку показуємо, інакше ховаємо
-  scrollY > 400 ? scrollBtnOn() : scrollBtnOff();
+  scrollY > 400 ? scrollBtnOn(upScrollBtnEl) : scrollBtnOff(upScrollBtnEl);
 });
-
-function loadBtnOff() {
-  loadMoreBtnEl.classList.add('is-hidden');
-}
-function loadBtnOn() {
-  loadMoreBtnEl.classList.remove('is-hidden');
-}
-function scrollBtnOff() {
-  upScrollBtnEl.classList.add('is-hidden');
-}
-function scrollBtnOn() {
-  upScrollBtnEl.classList.remove('is-hidden');
-}
-
