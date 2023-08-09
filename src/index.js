@@ -66,7 +66,7 @@ async function onLoadMoreClick(e) {
     galleryMarkupDom(data.hits);
     smoothScrollGallery();
     if (numRequestedPhotos * page >= data.totalHits) {
-      loadBtnOff;
+      loadBtnOff();
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
