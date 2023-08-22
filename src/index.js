@@ -22,9 +22,6 @@ import {
   onScrollGalleryStart,
 } from './js/scroll-gallery.js';
 
-loadBtnOff(loadMoreBtnEl);
-scrollBtnOff(upScrollBtnEl);
-
 let page = 1;
 let photoTitle = '';
 
